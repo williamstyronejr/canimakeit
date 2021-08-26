@@ -1,0 +1,28 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-background: #567734;
+  --color-submit: #efefef;
+  font-size: 62.5%;
+}
+
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  background-color: var(--color-background);
+}
+
+#__next {
+  height: 100%;
+}
+
+.page-main {
+  width: 100%;
+  height: 100%;
+}
