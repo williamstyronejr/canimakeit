@@ -5,9 +5,10 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const API_KEY = process.env.API_KEY;
 
 type Data = {
-  recipe: Object;
+  recipe: Object | null;
 };
 
+// Sample of data returns for reference
 const sampleData = {
   vegetarian: true,
   vegan: false,
@@ -776,19 +777,21 @@ const sampleData = {
   originalId: null,
   spoonacularSourceUrl: 'https://spoonacular.com/turkish-delight-664089',
 };
-//  TEST ID = 632140
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
   const { id } = req.query;
-  // const response = await fetch(
-  //   `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&includeNutrition=true`
-  // );
-  // const data = await response.json();
+  if (!id || id === '') return res.status(200).json({ recipe: null });
 
-  const data = sampleData;
-  // console.log(data);
+  try {
+    const data = await fetch(
+      `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}&includeNutrition=true`
+    ).then((res) => (res.status === 200 ? res.json() : null));
 
-  res.status(200).json({ recipe: data });
+    res.status(200).json({ recipe: data });
+  } catch (err) {
+    return res.status(200).json({ recipe: null });
+  }
 }
