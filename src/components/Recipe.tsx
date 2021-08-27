@@ -13,8 +13,14 @@ const fetcher = async (id: string) => {
   return data;
 };
 
+const NoRecipeFound = () => (
+  <section>
+    <div>Recipe not found</div>
+  </section>
+);
+
 const Recipe = ({ id }: { id: string | string[] | undefined }) => {
-  if (!id) return <div>Nothing here</div>;
+  if (!id) return <NoRecipeFound />;
 
   const { data, error } = useSWR(id, fetcher);
 
@@ -22,7 +28,8 @@ const Recipe = ({ id }: { id: string | string[] | undefined }) => {
   if (!data) return <div>Loading ...</div>;
   const { recipe } = data;
 
-  console.log(recipe);
+  if (recipe === null) return <NoRecipeFound />;
+
   return (
     <>
       <Head>
