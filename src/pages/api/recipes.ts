@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const API_KEY = process.env.API_KEY;
 
 type Data = {
-  recipes: Array<any>;
+  recipes: Array<Record<string, unknown>>;
 };
 
 // Sample of data returns for reference
@@ -619,7 +619,7 @@ const sampleData = [
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
-) {
+): Promise<void> {
   const { search } = req.query;
   if (!search || search === '') return res.status(200).json({ recipes: [] });
 

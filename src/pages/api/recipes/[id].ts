@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 const API_KEY = process.env.API_KEY;
 
 type Data = {
-  recipe: Object | null;
+  recipe: Record<string, unknown> | null;
 };
 
 // Sample of data returns for reference
@@ -781,7 +781,7 @@ const sampleData = {
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
-) {
+): Promise<void> {
   const { id } = req.query;
   if (!id || id === '') return res.status(200).json({ recipe: null });
 
@@ -792,6 +792,6 @@ export default async function handler(
 
     res.status(200).json({ recipe: data });
   } catch (err) {
-    return res.status(200).json({ recipe: null });
+    res.status(200).json({ recipe: null });
   }
 }

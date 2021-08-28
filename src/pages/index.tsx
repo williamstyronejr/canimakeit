@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import * as React from 'react';
 import Head from 'next/head';
-import { useTransition } from 'react-spring';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 
@@ -30,7 +29,7 @@ const Home: NextPage = () => {
           onChange={(evt) => setSearch(evt.target.value)}
           onKeyDown={(evt) => {
             if (evt.key === 'Enter') {
-              let str = search.trim().toLowerCase();
+              const str = search.trim().toLowerCase();
               if (!ingredients.includes(str) && str !== '')
                 setIngredients([...ingredients, str]);
               setSearch('');

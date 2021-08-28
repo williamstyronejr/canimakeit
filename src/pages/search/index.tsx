@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import Modal from 'react-modal';
 import useSWR from 'swr';
 import Recipe from '../../components/Recipe';
-import styles from '../../styles/SearchResults.module.css';
 
 Modal.setAppElement('#__next');
 

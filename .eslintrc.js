@@ -1,8 +1,18 @@
-module.export = {
+module.exports = {
   parserOptions: {
-    project: "tsconfig.json",
+    project: 'tsconfig.json',
     tsconfigRootDir: __dirname,
-    soruceType: "module",
+    soruceType: 'module',
   },
-  extends: ["airbnb-typescript"],
+  env: {
+    jest: true,
+    es6: true,
+  },
+  plugins: ['@typescript-eslint', 'react', 'jsx-a11y', 'import'],
+  extends: [
+    'next',
+    'next/core-web-vitals',
+    'plugin:@typescript-eslint/recommended',
+    'prettier',
+  ],
 };

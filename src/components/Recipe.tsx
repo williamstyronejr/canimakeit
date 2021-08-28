@@ -3,7 +3,7 @@ import Head from 'next/head';
 import useSWR from 'swr';
 import DomPurify from 'dompurify';
 
-const fetcher = async (id: string) => {
+const fetcher = async (id: string | string[]) => {
   const res = await fetch(`/api/recipes/${id}`);
   const data = await res.json();
 
@@ -19,11 +19,14 @@ const NoRecipeFound = () => (
   </section>
 );
 
-const Recipe = ({ id }: { id: string | string[] | undefined }) => {
+const Recipe = ({
+  id,
+}: {
+  id: string | string[] | undefined;
+}): React.ReactElement => {
+  const { data, error } = useSWR(id || '', fetcher);
+
   if (!id) return <NoRecipeFound />;
-
-  const { data, error } = useSWR(id, fetcher);
-
   if (error) return <div>error</div>;
   if (!data) return <div>Loading ...</div>;
   const { recipe } = data;
@@ -45,7 +48,7 @@ const Recipe = ({ id }: { id: string | string[] | undefined }) => {
               <li key={diet}>{diet}test</li>
             ))}
           </ul>
-          <img src={recipe.image} />
+          <img src={recipe.image} alt="Recipe example" />
         </header>
 
         <div>
